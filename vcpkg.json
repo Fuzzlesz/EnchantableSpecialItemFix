@@ -7,6 +7,15 @@
   "dependencies": [
     "boost-stl-interfaces",
     "rsm-binary-io",
-    "spdlog"
+    "spdlog",
+    "fmt"
+  ],
+  "builtin-baseline": "a04f49071fb49790798f05903f722da56806a41d",
+
+  "overrides": [
+    {
+      "name": "fmt",
+      "version": "9.1.0"
+    }
   ]
 }

@@ -1,21 +1,9 @@
 #pragma once
 
-#ifndef SKYRIMVR
 namespace Offset
 {
 	namespace ItemCard
 	{
-		constexpr REL::ID ShowItemData(51897);
+		constexpr REL::ID ShowItemData(51019);
 	}
 }
-
-#else
-
-namespace Offset
-{
-	namespace ItemCard
-	{
-		constexpr REL::Offset ShowItemData(0x8BEBD0);
-	}
-}
-#endif

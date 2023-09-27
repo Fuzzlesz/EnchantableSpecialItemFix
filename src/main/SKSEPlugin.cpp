@@ -31,24 +31,6 @@ namespace
 	}
 }
 
-#ifndef SKYRIMVR
-
-extern "C" DLLEXPORT constinit auto SKSEPlugin_Version =
-[]() {
-	SKSE::PluginVersionData v{};
-
-	v.PluginVersion(Plugin::VERSION);
-	v.PluginName(Plugin::NAME);
-	v.AuthorName("Parapets"sv);
-
-	v.UsesAddressLibrary(true);
-	v.HasNoStructUse(true);
-	v.UsesStructsPost629(false);
-
-	return v;
-}();
-
-#else
 
 extern "C" DLLEXPORT bool SKSEAPI
 	SKSEPlugin_Query(const SKSE::QueryInterface* a_skse, SKSE::PluginInfo* a_info)
@@ -63,7 +45,7 @@ extern "C" DLLEXPORT bool SKSEAPI
 	}
 
 	const auto ver = a_skse->RuntimeVersion();
-	if (ver != SKSE::RUNTIME_VR_1_4_15_1) {
+	if (ver < SKSE::RUNTIME_1_5_39) {
 		logger::critical(FMT_STRING("Unsupported runtime version {}"sv), ver.string());
 		return false;
 	}
@@ -71,7 +53,6 @@ extern "C" DLLEXPORT bool SKSEAPI
 	return true;
 }
 
-#endif
 
 extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_skse)
 {

@@ -1,5 +1,7 @@
 Fix player-made enchantments not appearing on descriptions of special items
 
+Port of original mod by Parapets to Skyrim version 1.5.97.
+
 ## Requirements
 * [CMake](https://cmake.org/)
 	* Add this to your `PATH`
@@ -15,8 +17,8 @@ Fix player-made enchantments not appearing on descriptions of special items
 
 ## Building
 ```
-git clone https://github.com/Exit-9B/EnchantableSpecialItemFix
-cd EnchantableSpecialItemFix
+git clone https://github.com/Fuzzlesz/EnchantableSpecialItemFix-1.5
+cd EnchantableSpecialItemFix-1.5
 git submodule init
 git submodule update
 cmake --preset vs2022-windows

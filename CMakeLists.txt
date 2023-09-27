@@ -32,20 +32,12 @@ if(CMAKE_GENERATOR MATCHES "Visual Studio")
 	option(CMAKE_VS_INCLUDE_INSTALL_TO_DEFAULT_BUILD "Include INSTALL target to default build." OFF)
 endif()
 
-option(BUILD_SKYRIMVR "Build the mod for Skyrim VR" OFF)
-
-if (BUILD_SKYRIMVR)
-	add_compile_definitions(SKYRIMVR)
-endif()
-
 list(APPEND CMAKE_IGNORE_PATH "${PROJECT_BINARY_DIR}")
 list(APPEND CMAKE_MODULE_PATH
 	"${PROJECT_SOURCE_DIR}/cmake"
-	"${PROJECT_SOURCE_DIR}/tools/BethesdaCMakeModules/Modules"
 )
 
 include(AddCXXFiles)
-include(Papyrus)
 
 add_library("${PROJECT_NAME}" SHARED)
 
@@ -127,58 +119,4 @@ target_link_libraries(
 	PRIVATE
 		CommonLibSSE::CommonLibSSE
 		spdlog::spdlog
-)
-
-file(GLOB Papyrus_SOURCES
-	LIST_DIRECTORIES false
-	CONFIGURE_DEPENDS
-	"scripts/*.psc"
-)
-
-add_papyrus(
-	"Papyrus"
-	GAME ${Skyrim64Path}
-	IMPORTS ${CMAKE_CURRENT_SOURCE_DIR}/scripts
-	SOURCES ${Papyrus_SOURCES}
-	OPTIMIZE
-	ANONYMIZE
-)
-
-source_group("Scripts" FILES ${Papyrus_SOURCES})
-
-install(
-	FILES
-		"$<TARGET_FILE:${PROJECT_NAME}>"
-		"$<TARGET_PDB_FILE:${PROJECT_NAME}>"
-	DESTINATION "SKSE/Plugins"
-	COMPONENT SKSEPlugin
-)
-
-install(
-	FILES ${Papyrus_SOURCES}
-	DESTINATION "Source/Scripts"
-	COMPONENT Data
-)
-
-install(
-	FILES ${Papyrus_OUTPUT}
-	DESTINATION "Scripts"
-	COMPONENT Data
-)
-
-install(
-	FILES
-		${CMAKE_CURRENT_SOURCE_DIR}/data/Patches/EnchantableSpecialItemFix_Gaunt.esp
-		${CMAKE_CURRENT_SOURCE_DIR}/data/Patches/EnchantableSpecialItemFix_USSEP.esp
-	DESTINATION "."
-	COMPONENT Patches
-)
-
-install(
-	FILES
-		${CMAKE_CURRENT_SOURCE_DIR}/data/fomod/info.xml
-		${CMAKE_CURRENT_SOURCE_DIR}/data/fomod/ModuleConfig.xml
-	DESTINATION "fomod"
-	COMPONENT Fomod
-	EXCLUDE_FROM_ALL
 )
